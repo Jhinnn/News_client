@@ -31,7 +31,9 @@ class BaiduPage extends StatelessWidget {
         ).toString().substring(0, 16);
         return InkWell(
           onTap: () {
-            Uri url = Uri.parse(element.rawUrl);
+            String urlString = element.rawUrl
+                .replaceFirstMapped('m.baidu.com', (match) => 'www.baidu.com');
+            Uri url = Uri.parse(urlString);
             launchUrl(url);
           },
           child: Padding(

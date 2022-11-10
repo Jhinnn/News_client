@@ -3,33 +3,7 @@ import 'package:data_statistics/models/weibo_model.dart' as weibo;
 import 'package:data_statistics/models/zhihu_model.dart';
 import 'package:dio/dio.dart';
 
-import 'http_request.dart';
-import 'package:html/dom.dart' as dom;
-import 'package:flutter_html/html_parser.dart' as parser;
-
 class Api {
-  static Future<List<String>> fetchBaiduPackages() async {
-    List<String> baiduHotList = [];
-    try {
-      String response = await DioFactory.getHtml(
-          baseUrl: 'https://top.baidu.com/board',
-          param: '?tab=realtime',
-          startStr: '<main class="rel container_2VTvm"',
-          endStr: '<div class="container footer_aoJsU">');
-
-      dom.Document document = parser.HtmlParser.parseHTML(response);
-      List<dom.Element> hotElementList = document
-          .getElementsByClassName('category-wrap_iQLoo horizontal_1eKyQ');
-      for (var element in hotElementList) {
-        List<dom.Element> textE =
-            element.getElementsByClassName('c-single-text-ellipsis');
-        baiduHotList.add(textE.first.text.trim());
-      }
-      return baiduHotList;
-    } catch (e) {
-      return [];
-    }
-  }
 
   static Future<List<Cards>?> fetchBaidu() async {
     Map<String, dynamic> header = {
@@ -60,7 +34,6 @@ class Api {
     } catch (e) {
       print(e.toString());
       return [];
-      
     }
   }
 

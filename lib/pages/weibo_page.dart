@@ -18,12 +18,18 @@ class WeiboPage extends StatelessWidget {
         return timeTime.substring(0, 10);
       },
       groupSeparatorBuilder: (String groupByValue) {
-        return Image.asset('assets/images/weibo.png',width: 120,height: 50,);
+        return Image.asset(
+          'assets/images/weibo.png',
+          width: 120,
+          height: 50,
+        );
       },
       itemBuilder: (context, WBDetailModel element) {
         return InkWell(
-          onTap: () {
-              Uri url = Uri.parse(element.scheme);
+          onTap: () {        
+            String urlString =
+                'https://s.weibo.com/weibo?q=%23${element.title}%23';
+            Uri url = Uri.parse(urlString);
             launchUrl(url);
           },
           child: Padding(
