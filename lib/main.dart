@@ -33,7 +33,17 @@ class MyApp extends StatelessWidget {
       title: '',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+          primarySwatch: Colors.amber,
+          textTheme: const TextTheme(
+              overline: TextStyle(
+                  fontSize: 8,
+                  fontWeight: FontWeight.w200,
+                  color: Colors.black54),
+              bodyText1: TextStyle(
+                  fontSize: 12,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w800),
+              bodyText2: TextStyle(fontSize: 10, color: Colors.black45))
       ),
       home: const HomePage(),
     );

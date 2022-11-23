@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:data_statistics/models/weibo_model.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
@@ -9,6 +11,34 @@ class WeiboPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Platform.isAndroid || Platform.isIOS ? mobileWidget() : pcWidget();
+  }
+
+  mobileWidget() {
+    return ListView.builder(
+      itemCount: modelList.length,
+      itemBuilder: (context, index) {
+        WBDetailModel element = modelList[index];
+        return InkWell(
+          onTap: () {
+            String urlString =
+                'https://s.weibo.com/weibo?q=%23${element.title}%23';
+            Uri url = Uri.parse(urlString);
+            launchUrl(url);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Text(
+              element.title,
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  pcWidget() {
     return GroupedListView<WBDetailModel, String>(
       elements: modelList,
       groupBy: (element) {
@@ -26,7 +56,7 @@ class WeiboPage extends StatelessWidget {
       },
       itemBuilder: (context, WBDetailModel element) {
         return InkWell(
-          onTap: () {        
+          onTap: () {
             String urlString =
                 'https://s.weibo.com/weibo?q=%23${element.title}%23';
             Uri url = Uri.parse(urlString);
@@ -34,10 +64,8 @@ class WeiboPage extends StatelessWidget {
           },
           child: Padding(
             padding: const EdgeInsets.all(4.0),
-            child: Text(
-              element.title,
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800),
-            ),
+            child: Text(element.title,
+                style: Theme.of(context).textTheme.bodyText1),
           ),
         );
       },
