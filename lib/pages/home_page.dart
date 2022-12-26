@@ -1,17 +1,12 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:data_statistics/db/db_helper.dart';
 import 'package:data_statistics/models/baidu_model.dart' as baidu;
 import 'package:data_statistics/models/weibo_model.dart' as weibo;
 import 'package:data_statistics/models/zhihu_model.dart';
-import 'package:data_statistics/pages/news_page/news_page.dart';
 import 'package:data_statistics/pages/news_page/weibo_page.dart';
 import 'package:data_statistics/pages/news_page/zhihu_page.dart';
-import 'package:data_statistics/pages/setting_page.dart';
 import 'package:data_statistics/request/api.dart';
 import 'package:flutter/material.dart';
-
 import 'news_page/baidu_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,21 +21,20 @@ class _HomePageState extends State<HomePage> {
   List<baidu.BDDetailModel> dDDetailModelList = [];
   List<weibo.WBDetailModel> wbDetailModelList = [];
 
-  late Timer _timer;
   int index = 0;
   @override
   void initState() {
-    // TODO: implement initState
-
+    super.initState();
     getAllData();
 
-    _timer = Timer.periodic(const Duration(minutes: 10), (timer) {
+    Timer.periodic(const Duration(minutes: 10), (timer) {
       getAllData();
     });
   }
 
   getAllData() async {
     print('更新时间:${DateTime.now()}');
+
     await getZhihuData();
     await getBaiduData();
     await getWeiboData();
@@ -104,75 +98,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Platform.isIOS || Platform.isAndroid
-        ? Scaffold(
-            backgroundColor: Colors.black,
-            bottomNavigationBar: BottomNavigationBar(
-                onTap: (i) {
-                  setState(() {
-                    index = i;
-                  });
-                },
-                currentIndex: index,
-                type: BottomNavigationBarType.fixed,
-                items: const [
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.newspaper,
-                    ),
-                    activeIcon: Icon(
-                      Icons.newspaper,
-                    ),
-                    label: '新闻',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.photo,
-                    ),
-                    activeIcon: Icon(
-                      Icons.photo,
-                    ),
-                    label: '相册',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.search,
-                    ),
-                    activeIcon: Icon(
-                      Icons.search,
-                    ),
-                    label: '22',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.settings,
-                    ),
-                    activeIcon: Icon(
-                      Icons.settings,
-                    ),
-                    label: '设置',
-                  ),
-                ]),
-            body: IndexedStack(
-              index: index,
-              children: [
-                NewsPage(
-                    zHDetailModelList: zHDetailModelList,
-                    dDDetailModelList: dDDetailModelList,
-                    wbDetailModelList: wbDetailModelList),
-                const SettingPage(),
-                const SettingPage(),
-                const SettingPage(),
-              ],
-            ))
-        : Scaffold(
-            body: Padding(
-                padding: const EdgeInsets.only(top: 20), child: pcWidget()),
-            floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  getAllData();
-                },
-                child: const Icon(Icons.refresh)));
+    return Scaffold(
+        body:
+            Padding(padding: const EdgeInsets.only(top: 20), child: pcWidget()),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              getAllData();
+            },
+            child: const Icon(Icons.refresh)));
   }
 
   pcWidget() {

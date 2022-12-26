@@ -206,7 +206,7 @@ class Target {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['title'] = title;
     data['excerpt_title'] = excerptTitle;
@@ -265,7 +265,7 @@ class Author {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['type'] = type;
     data['user_type'] = userType;
     data['id'] = id;
@@ -294,7 +294,7 @@ class Linkbox {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['pic'] = pic;
     data['title'] = title;
     data['url'] = url;
@@ -315,7 +315,7 @@ class Children {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['type'] = type;
     data['thumbnail'] = thumbnail;
     return data;
@@ -336,7 +336,7 @@ class Paging {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['is_end'] = isEnd;
     data['next'] = next;
     data['previous'] = previous;
