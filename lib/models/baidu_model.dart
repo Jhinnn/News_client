@@ -1,13 +1,3 @@
-//  "id"    INTEGER NOT NULL PRIMARY KEY,
-//         "app_url"   TEXT,
-//         "desc" TEXT,
-//         "hot_score" TEXT,
-//         "img"  TEXT,
-//         "query"  TEXT,
-//         "raw_url"  TEXT,
-//         "url"  TEXT,
-//         "word"  TEXT,
-//         "update_time"  TEXT
 class BDDetailModel {
   int? id;
   late String appUrl;
@@ -96,13 +86,7 @@ class Data {
   List<TabBoard>? tabBoard;
   List? tag;
 
-  Data(
-      {this.cards,
-      this.curBoardName,
-      this.logid,
-      this.platform,
-      this.tabBoard,
-      this.tag});
+  Data({this.cards, this.curBoardName, this.logid, this.platform, this.tabBoard, this.tag});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['cards'] != null) {
@@ -157,16 +141,7 @@ class Cards {
   String? typeName;
   String? updateTime;
 
-  Cards(
-      {this.component,
-      this.content,
-      this.more,
-      this.moreAppUrl,
-      this.moreUrl,
-      this.text,
-      this.topContent,
-      this.typeName,
-      this.updateTime});
+  Cards({this.component, this.content, this.more, this.moreAppUrl, this.moreUrl, this.text, this.topContent, this.typeName, this.updateTime});
 
   Cards.fromJson(Map<String, dynamic> json) {
     component = json['component'];
@@ -224,20 +199,7 @@ class Content {
   String? url;
   String? word;
 
-  Content(
-      {this.appUrl,
-      this.desc,
-      this.hotChange,
-      this.hotScore,
-      this.hotTag,
-      this.hotTagImg,
-      this.img,
-      this.index,
-      this.query,
-      this.rawUrl,
-      this.show,
-      this.url,
-      this.word});
+  Content({this.appUrl, this.desc, this.hotChange, this.hotScore, this.hotTag, this.hotTagImg, this.img, this.index, this.query, this.rawUrl, this.show, this.url, this.word});
 
   Content.fromJson(Map<String, dynamic> json) {
     appUrl = json['appUrl'];

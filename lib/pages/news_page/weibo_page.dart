@@ -7,39 +7,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 class WeiboPage extends StatelessWidget {
   final List<WBDetailModel> modelList;
-  const WeiboPage({Key? key, required this.modelList}) : super(key: key);
+  const WeiboPage({super.key, required this.modelList});
 
   @override
   Widget build(BuildContext context) {
-    return Platform.isAndroid || Platform.isIOS ? mobileWidget() : pcWidget();
-  }
-
-  mobileWidget() {
-    return ListView.builder(
-      itemCount: modelList.length,
-      itemBuilder: (context, index) {
-        WBDetailModel element = modelList[index];
-        return InkWell(
-          onTap: () {
-            String urlString =
-                'https://s.weibo.com/weibo?q=%23${element.title}%23';
-            Uri url = Uri.parse(urlString);
-            launchUrl(url);
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Text(
-              element.title,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  pcWidget() {
-    return GroupedListView<WBDetailModel, String>(
+    return  GroupedListView<WBDetailModel, String>(
       elements: modelList,
       groupBy: (element) {
         String timeTime = DateTime.fromMillisecondsSinceEpoch(
@@ -65,7 +37,7 @@ class WeiboPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: Text(element.title,
-                style: Theme.of(context).textTheme.bodyText1),
+                style: Theme.of(context).textTheme.bodyLarge),
           ),
         );
       },
@@ -75,4 +47,5 @@ class WeiboPage extends StatelessWidget {
       order: GroupedListOrder.DESC,
     );
   }
+
 }

@@ -12,12 +12,10 @@ class WBDetailModel {
   });
 
   WBDetailModel.fromJson(Map<String, dynamic> json) {
-    
     title = json['title'];
     scheme = json['scheme'];
     itemid = json['itemid'];
     create = json['create'];
-    
   }
 
   Map<String, dynamic> toJson() {
@@ -26,7 +24,7 @@ class WBDetailModel {
     data['scheme'] = scheme;
     data['itemid'] = itemid;
     data['create'] = create;
-    
+
     return data;
   }
 }
@@ -88,8 +86,7 @@ class Cards {
   late List<CardGroup> _cardGroup;
   late int _showType;
 
-  Cards(int cardType, String itemid, String title, List<CardGroup> cardGroup,
-      int showType) {
+  Cards(int cardType, String itemid, String title, List<CardGroup> cardGroup, int showType) {
     _cardType = cardType;
     _itemid = itemid;
     _title = title;
@@ -136,8 +133,7 @@ class CardGroup {
   String? _desc;
   Actionlog? _actionlog;
 
-  CardGroup(int cardType, String scheme, String pic, String itemid, String icon,
-      String desc, Actionlog actionlog) {
+  CardGroup(int cardType, String scheme, String pic, String itemid, String icon, String desc, Actionlog actionlog) {
     _cardType = cardType;
     _scheme = scheme;
     _pic = pic;
@@ -168,9 +164,7 @@ class CardGroup {
     _itemid = json['itemid'];
     _icon = json['icon'];
     _desc = json['desc'];
-    _actionlog = json['actionlog'] != null
-        ? Actionlog.fromJson(json['actionlog'])
-        : null;
+    _actionlog = json['actionlog'] != null ? Actionlog.fromJson(json['actionlog']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -197,8 +191,7 @@ class Actionlog {
   int? _actCode;
   String? _ext;
 
-  Actionlog(String lfid, String fid, String luicode, int actType, String uicode,
-      int actCode, String ext) {
+  Actionlog(String lfid, String fid, String luicode, int actType, String uicode, int actCode, String ext) {
     _lfid = lfid;
     _fid = fid;
     _luicode = luicode;

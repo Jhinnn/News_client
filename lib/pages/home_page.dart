@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'news_page/baidu_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -21,27 +21,26 @@ class _HomePageState extends State<HomePage> {
   List<baidu.BDDetailModel> dDDetailModelList = [];
   List<weibo.WBDetailModel> wbDetailModelList = [];
 
-  int index = 0;
   @override
   void initState() {
     super.initState();
-    getAllData();
 
-    Timer.periodic(const Duration(minutes: 10), (timer) {
-      getAllData();
-    });
+    refresh();
+
+    Timer.periodic(const Duration(minutes: 10), (timer) => refresh());
   }
 
-  getAllData() async {
+  void refresh() async {
     print('更新时间:${DateTime.now()}');
 
     await getZhihuData();
     await getBaiduData();
     await getWeiboData();
-    queryAllData();
+
+    getAllNews();
   }
 
-  queryAllData() async {
+  getAllNews() async {
     zHDetailModelList = await DbHelper.instance.zhihuTable.query();
 
     dDDetailModelList = await DbHelper.instance.baiduTable.query();
@@ -52,19 +51,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   getWeiboData() async {
-    List<weibo.CardGroup> wbModelList = await Api.fetchWeiboPackages();
+    List<weibo.CardGroup> wbModelList = await Api.getWeiboNews();
     for (weibo.CardGroup group in wbModelList) {
-      weibo.WBDetailModel wbDetailModel = weibo.WBDetailModel(
-          title: group.desc,
-          scheme: group.scheme,
-          itemid: group.itemid,
-          create: DateTime.now().millisecondsSinceEpoch.toStringAsFixed(0));
+      weibo.WBDetailModel wbDetailModel = weibo.WBDetailModel(title: group.desc, scheme: group.scheme, itemid: group.itemid, create: DateTime.now().millisecondsSinceEpoch.toStringAsFixed(0));
       await DbHelper.instance.weiboTable.insertHot(wbDetailModel);
     }
   }
 
   getZhihuData() async {
-    List<ZHModel> zhModelList = await Api.fetchZhihuPackages();
+    List<ZHModel> zhModelList = await Api.getZhihuNews();
     for (ZHModel zhModel in zhModelList) {
       ZHDetailModel zhDetailModel = ZHDetailModel(
           id: zhModel.target!.id!,
@@ -79,7 +74,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   getBaiduData() async {
-    List<baidu.Cards>? zhModelList = await Api.fetchBaidu();
+    List<baidu.Cards>? zhModelList = await Api.getBaiduNews();
     List<baidu.Content>? listContent = zhModelList!.first.content;
     for (baidu.Content content in listContent!) {
       baidu.BDDetailModel bdDetailModel = baidu.BDDetailModel(
@@ -99,33 +94,28 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:
-            Padding(padding: const EdgeInsets.only(top: 20), child: pcWidget()),
-        floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              getAllData();
-            },
-            child: const Icon(Icons.refresh)));
+      backgroundColor: Colors.white,
+      body: Padding(padding: const EdgeInsets.only(top: 20), child: newsWidget()),
+    );
   }
 
-  pcWidget() {
+  Widget newsWidget() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-            flex: 1,
             child: WeiboPage(
-              modelList: wbDetailModelList,
-            )),
+          modelList: wbDetailModelList,
+        )),
         Expanded(
-            flex: 1,
             child: ZhihuPage(
-              modelList: zHDetailModelList,
-            )),
+          modelList: zHDetailModelList,
+        )),
+        const SizedBox(width: 10,),
         Expanded(
-            flex: 1,
             child: BaiduPage(
-              modelList: dDDetailModelList,
-            )),
+          modelList: dDDetailModelList,
+        )),
       ],
     );
   }

@@ -5,22 +5,13 @@ import 'package:sqflite/sqlite_api.dart';
 
 class ZhihuTable extends TableOperation {
   Future<List<ZHDetailModel>> query() async {
-    List<Map<String, Object?>> data =
-        await dDatabase.query(DSTableDefine.zhihuTable);
+    List<Map<String, Object?>> data = await dDatabase.query(DSTableDefine.zhihuTable);
     return List.generate(data.length, (index) {
       return ZHDetailModel.fromJson(data[index]);
     });
   }
 
-
   Future<int> insertHot(ZHDetailModel zhDetailModel) async {
-    return await dDatabase.insert(
-        DSTableDefine.zhihuTable, zhDetailModel.toJson(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+    return await dDatabase.insert(DSTableDefine.zhihuTable, zhDetailModel.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
   }
-
-  // Future<int> clearAll() async {
-  //   return await dDatabase
-  //       .delete(DSTableDefine.zhihuTable);
-  // }
 }
