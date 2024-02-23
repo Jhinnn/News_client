@@ -16,3 +16,4 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 # data_statistics
 # flutter_data_persistence
+# News_client
