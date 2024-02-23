@@ -70,10 +70,10 @@ class ZhihuPage extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.bodyLarge,
                             ),
-                            Text(
-                              timeTime,
-                              style: Theme.of(context).textTheme.labelSmall,
-                            ),
+                            // Text(
+                            //   timeTime,
+                            //   style: Theme.of(context).textTheme.labelSmall,
+                            // ),
                           ],
                         ),
                       ),
@@ -81,7 +81,7 @@ class ZhihuPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 4),
-                Text(element.excerpt, maxLines: 5, style: Theme.of(context).textTheme.bodyMedium),
+                Text(element.excerpt, maxLines: 3, style: Theme.of(context).textTheme.bodyMedium),
               ]),
             ));
       },

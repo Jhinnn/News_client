@@ -8,6 +8,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
 
 import 'package:path_provider/path_provider.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 /// 数据库帮助类
 class DbHelper {
@@ -46,8 +47,10 @@ class DbHelper {
   Future<Database> _initDb() async {
     // 这里是我们真正创建数据库的地方 vserion代表数据库的版本，如果版本改变
     //，则db会调用onUpgrade方法进行更新操作
+    
     Directory path = await getApplicationDocumentsDirectory();
     print(p.join(path.path, 'statistics', 'hot.db'));
+    
     final db = await openDatabase(p.join(path.path, 'statistics', 'hot.db'),
         version: 1, onCreate: (db, version) {
       // 数据库创建完成
