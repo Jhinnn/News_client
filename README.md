@@ -1,19 +1,2 @@
-# data_statistics
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# data_statistics
-# flutter_data_persistence
-# News_client
+# 新浪微博，百度，知乎新闻实时滚动
+<img width="960" alt="image" src="https://github.com/Jhinnn/News_client/assets/17973224/b13ef630-7237-466b-aeef-026ee3a887a3">
